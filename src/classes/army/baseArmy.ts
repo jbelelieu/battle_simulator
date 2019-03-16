@@ -1,9 +1,11 @@
-import { MinuteMan } from '../units/minuteman';
+import { AdvancedSoldier } from '../units/advancedSoldier';
+import { MinuteMan } from '../units/minuteMan';
+import { Soldier } from '../units/soldier';
 
 export class BaseArmy {
-	private _units: Array<MinuteMan> = [];
+	private _units: Array<AdvancedSoldier | MinuteMan | Soldier> = [];
 
-	public addUnit(unit: MinuteMan): void {
+	public addUnit(unit: AdvancedSoldier | MinuteMan | Soldier): void {
 		this._units.push(unit);
 	}
 
@@ -15,11 +17,11 @@ export class BaseArmy {
 		this._units.splice(unitToRemove, 1);
 	}
 
-	public getUnit(index: number): MinuteMan {
+	public getUnit(index: number): AdvancedSoldier | MinuteMan | Soldier {
 		return this._units[index];
 	}
 
-	get units(): Array<MinuteMan> {
+	get units(): Array<AdvancedSoldier | MinuteMan | Soldier> {
 		return this._units;
 	}
 }

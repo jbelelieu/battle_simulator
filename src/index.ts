@@ -1,6 +1,6 @@
 import { Army } from './classes/army/army';
-import { getNumberInRange } from './helpers/math';
-import { MinuteMan } from './classes/units/minuteman';
+import { getNumberInRange, getRandomInt } from './helpers/math';
+import { spawnUnit, unitTypes } from './classes/units/types';
 import { Battle } from './classes/battle/battle';
 
 // -----------------------------------
@@ -8,6 +8,8 @@ import { Battle } from './classes/battle/battle';
 const totalRounds = 10;
 let armySize1 = getNumberInRange(7500, 10000);
 let armySize2 = getNumberInRange(7500, 10000);
+
+const unitTypesCount = unitTypes.length;
 
 // -----------------------------------
 // Prep the battle
@@ -20,12 +22,12 @@ console.log('Army 1 Start Size', armySize1);
 console.log('Army 2 Start Size', armySize2);
 
 while (armySize1 > 0) {
-	army1.addUnit(new MinuteMan(100, 1));
+	army1.addUnit(spawnUnit(unitTypes[getRandomInt(unitTypesCount)]));
 	armySize1--;
 }
 
 while (armySize2 > 0) {
-	army2.addUnit(new MinuteMan(100, 1));
+	army2.addUnit(spawnUnit(unitTypes[getRandomInt(unitTypesCount)]));
 	armySize2--;
 }
 

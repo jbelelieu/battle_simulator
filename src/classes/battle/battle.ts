@@ -1,7 +1,9 @@
 import { getRandomInt } from '../../helpers/math';
 import { Army } from '../army/army';
 import { Istats } from '../interface/stats';
-import { MinuteMan } from '../units/minuteman';
+import { AdvancedSoldier } from '../units/advancedSoldier';
+import { MinuteMan } from '../units/minuteMan';
+import { Soldier } from '../units/soldier';
 
 export class Battle {
 	private __finalArmy1Stats: Istats;
@@ -74,8 +76,10 @@ export class Battle {
 			kills: 0
 		};
 
-		army.units.forEach(async (unit: MinuteMan) => {
-			if (getRandomInt(100) <= unit.accuracy) {
+		army.units.forEach(async (unit: AdvancedSoldier | MinuteMan | Soldier) => {
+			const randomChance = getRandomInt(100);
+
+			if (randomChance <= unit.accuracy) {
 				const randomSelection = getRandomInt(otherArmy.getSize());
 
 				const rando = otherArmy.getUnit(randomSelection);
