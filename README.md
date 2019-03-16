@@ -6,6 +6,7 @@ This repo is an experimental battle simulator, written in TypeScript, which whic
 
 ```
 npm install
+npm run build
 npm run start
 ```
 
