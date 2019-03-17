@@ -1,6 +1,7 @@
 export class BaseUnit {
 	protected _strength: number = 10;
 	protected _accuracy: number = 10;
+	protected _splashDamage: number = 1;
 	private __hp: number = 100;
 	private __upgradeLevel: number = 1;
 
@@ -18,6 +19,10 @@ export class BaseUnit {
 
 			return false;
 		}
+	}
+
+	get splashDamage(): number {
+		return this._splashDamage;
 	}
 
 	get hp(): number {

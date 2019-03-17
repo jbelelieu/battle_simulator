@@ -1,9 +1,7 @@
 import { getRandomInt } from '../../helpers/math';
 import { Army } from '../army/army';
 import { Istats } from '../interface/stats';
-import { AdvancedSoldier } from '../units/advancedSoldier';
-import { MinuteMan } from '../units/minuteMan';
-import { Soldier } from '../units/soldier';
+import { UnitTypes } from '../units/typeAliases';
 
 export class Battle {
 	private __finalArmy1Stats: Istats;
@@ -65,40 +63,71 @@ export class Battle {
 		return {
 			hits: a.hits + b.hits,
 			damage: a.damage + b.damage,
-			kills: a.kills + b.kills
+			kills: a.kills + b.kills,
+			attempts: a.attempts + b.attempts
 		};
 	}
 
+	// TODO: Update this to rotate between armies otherwise army 1 always has the advantage.
 	private play(army: Army, otherArmy: Army): Istats {
 		const stats = {
+			attempts: army.units.length,
 			hits: 0,
 			damage: 0,
 			kills: 0
 		};
 
-		army.units.forEach(async (unit: AdvancedSoldier | MinuteMan | Soldier) => {
+		army.units.forEach(async (unit: UnitTypes) => {
 			const randomChance = getRandomInt(100);
 
 			if (randomChance <= unit.accuracy) {
-				const randomSelection = getRandomInt(otherArmy.getSize());
+				const hitUnits = this.getUnitsHit(otherArmy.units, unit.splashDamage);
 
-				const rando = otherArmy.getUnit(randomSelection);
+				stats.hits += unit.splashDamage;
+				stats.damage += unit.stength * unit.splashDamage;
 
-				if (rando) {
-					stats.hits += 1;
-					stats.damage += unit.stength;
+				for (let x = 0; x < unit.splashDamage; x++) {
+					try {
+						const outcome = otherArmy.getUnit(hitUnits[x]).registerHit(unit.stength);
 
-					const outcome = otherArmy.getUnit(randomSelection).registerHit(unit.stength);
+						if (outcome) {
+							stats.kills += 1;
 
-					if (outcome) {
-						stats.kills += 1;
-
-						otherArmy.removeUnit(randomSelection);
+							otherArmy.removeUnit(hitUnits[x]);
+						}
+					} catch (e) {
+						// console.warn('-> ERROR', hitUnits[x], x);
 					}
 				}
 			}
 		});
 
 		return stats;
+	}
+
+	private getUnitsHit(unitArray: Array<UnitTypes>, totalToHit: number = 1): Array<number> {
+		let actualTotalWeAreHitting = totalToHit;
+
+		if (unitArray.length < totalToHit) {
+			actualTotalWeAreHitting = unitArray.length;
+		}
+
+		if (unitArray.length === 1) {
+			return [ 0 ];
+		} else if (actualTotalWeAreHitting === 0) {
+			return [];
+		}
+
+		const arr: Array<number> = [];
+
+		while (arr.length < actualTotalWeAreHitting) {
+			const selected = Math.floor(Math.random() * unitArray.length);
+
+			if (arr.indexOf(selected) === -1 && unitArray[selected]) {
+				arr.push(selected);
+			}
+		}
+
+		return arr;
 	}
 }
