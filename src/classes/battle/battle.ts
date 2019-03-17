@@ -42,12 +42,12 @@ export class Battle {
 				break;
 			}
 
-			const a1Stats = await this.play(this.__army1, this.__army2);
+			const a1Stats = this.play(this.__army1, this.__army2);
 			this.__rawArmy1Stats.push(a1Stats);
 
 			console.log('Army 1 Stats', a1Stats);
 
-			const a2Stats = await this.play(this.__army2, this.__army1);
+			const a2Stats = this.play(this.__army2, this.__army1);
 			this.__rawArmy2Stats.push(a2Stats);
 
 			console.log('Army 2 Stats', a2Stats);
@@ -72,7 +72,6 @@ export class Battle {
 		};
 	}
 
-	// TODO: Update this to rotate between armies otherwise army 1 always has the advantage.
 	private play(army: Army, otherArmy: Army): Istats {
 		const stats = {
 			attempts: army.units.length,
