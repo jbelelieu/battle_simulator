@@ -9,10 +9,10 @@ const unitTypesCount = UnitNames.length;
 // -----------------------------------
 // General Battle Config
 const totalRounds = 10;
-let armySize1 = getNumberInRange(15000, 25000);
-let armySize2 = getNumberInRange(15000, 25000);
+let armySize1 = getNumberInRange(200, 250);
+let armySize2 = getNumberInRange(250, 350);
 let holdArmy1Size = armySize1;
-let holdArmy2Size = armySize1;
+let holdArmy2Size = armySize2;
 
 // -----------------------------------
 // Prep the battle
@@ -43,6 +43,7 @@ const battle = new Battle(totalRounds, army1, army2);
 
 runBattle(battle).then((battleResults: Battle) => {
 	console.log('\n* * * * * * * * * * * * * * * * * * * *\n');
+	console.log(battleResults.army2.units);
 	console.log('ARMY 1, BATTLE STATS:', holdArmy1Size, '->', battleResults.army1.getSize(), battleResults.army1Stats);
 	console.log('ARMY 2, BATTLE STATS:', holdArmy2Size, '->', battleResults.army2.getSize(), battleResults.army2Stats);
 	console.log('\n* * * * * * * * * * * * * * * * * * * *\n');

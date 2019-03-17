@@ -36,7 +36,11 @@ export class Battle {
 
 	public async run(): Promise<Battle> {
 		for (let i = 0; i < this.__totalRounds; i += 1) {
-			console.log(`Starting Round...`);
+			console.log(`Starting Round ${i}...`);
+
+			if (this.__army1.getSize() === 0 || this.__army2.getSize() === 0) {
+				break;
+			}
 
 			const a1Stats = await this.play(this.__army1, this.__army2);
 			this.__rawArmy1Stats.push(a1Stats);
@@ -96,7 +100,7 @@ export class Battle {
 							otherArmy.removeUnit(hitUnits[x]);
 						}
 					} catch (e) {
-						// console.warn('-> ERROR', hitUnits[x], x);
+						console.warn('-> ERROR', hitUnits[x], x);
 					}
 				}
 			}
