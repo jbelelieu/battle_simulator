@@ -99,7 +99,7 @@ export class Battle {
 							otherArmy.removeUnit(hitUnits[x]);
 						}
 					} catch (e) {
-						console.warn('-> ERROR', hitUnits[x], x);
+						// console.warn('-> ERROR', hitUnits[x], x);
 					}
 				}
 			}
@@ -126,7 +126,7 @@ export class Battle {
 		while (arr.length < actualTotalWeAreHitting) {
 			const selected = Math.floor(Math.random() * unitArray.length);
 
-			if (arr.indexOf(selected) === -1 && unitArray[selected]) {
+			if (arr.indexOf(selected) === -1 && unitArray[selected] != null) {
 				arr.push(selected);
 			}
 		}

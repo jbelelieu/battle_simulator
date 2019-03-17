@@ -19,6 +19,8 @@
     "no-redundant-jsdoc": false,
     "prefer-type-cast": false,
     "array-type": false,
+    "completed-docs": false,
+    "no-console": false,
     "prefer-array-literal": false,
     "no-increment-decrement": false,
     "typedef": [

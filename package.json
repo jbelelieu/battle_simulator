@@ -36,5 +36,7 @@
 	},
 	"author": "Jon Belelieu <jonnyobell@gmail.com>",
 	"license": "MIT",
-	"dependencies": {}
+	"dependencies": {
+		"yargs": "^13.2.2"
+	}
 }

@@ -1,18 +1,20 @@
+import * as argv from 'yargs';
 import { Army } from './classes/army/army';
-import { getRandomInt, getNumberInRange } from './helpers/math';
-import { spawnUnit } from './classes/units/types';
-import { UnitNames } from './classes/units/typeAliases';
 import { Battle } from './classes/battle/battle';
+import { UnitNames } from './classes/units/typeAliases';
+import { spawnUnit } from './classes/units/types';
+import { getNumberInRange, getRandomInt } from './helpers/math';
 
 const unitTypesCount = UnitNames.length;
 
 // -----------------------------------
 // General Battle Config
-const totalRounds = 10;
-let armySize1 = getNumberInRange(50, 100);
-let armySize2 = getNumberInRange(50, 100);
-let holdArmy1Size = armySize1;
-let holdArmy2Size = armySize2;
+const args = argv.argv;
+const totalRounds = args.rounds ? args.rounds : 10;
+let armySize1 = args.army1 ? args.army1 : getNumberInRange(50, 100);
+let armySize2 = args.army2 ? args.army2 : getNumberInRange(50, 100);
+const holdArmy1Size = armySize1;
+const holdArmy2Size = armySize2;
 
 // -----------------------------------
 // Prep the battle
@@ -48,6 +50,6 @@ runBattle(battle).then((battleResults: Battle) => {
 	console.log('\n* * * * * * * * * * * * * * * * * * * *\n');
 });
 
-async function runBattle(battle: Battle): Promise<Battle> {
-	return await battle.run();
+async function runBattle(incomingBattle: Battle): Promise<Battle> {
+	return incomingBattle.run();
 }
