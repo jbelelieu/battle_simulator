@@ -1,7 +1,7 @@
 {
-	"name": "battle_simulator",
+	"name": "battle_juice",
 	"version": "0.0.1",
-	"description": "Experimental battle simulator.",
+	"description": "Battle simulator designed for an async turn-by-turn style game.",
 	"engineStrict": true,
 	"engines": {
 		"node": ">= 10.13 <11"
