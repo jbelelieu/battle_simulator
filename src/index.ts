@@ -3,7 +3,7 @@ import { Army } from './classes/army/army';
 import { Battle } from './classes/battle/battle';
 import { UnitNames } from './classes/units/typeAliases';
 import { spawnUnit } from './classes/units/types';
-import { getNumberInRange, getRandomInt } from './helpers/math';
+import { getRandomInt } from './helpers/math'; // getNumberInRange
 
 const unitTypesCount = UnitNames.length;
 
@@ -11,8 +11,8 @@ const unitTypesCount = UnitNames.length;
 // General Battle Config
 const args = argv.argv;
 const totalRounds = args.rounds ? args.rounds : 10;
-let armySize1 = args.army1 ? args.army1 : getNumberInRange(50, 100);
-let armySize2 = args.army2 ? args.army2 : getNumberInRange(50, 100);
+let armySize1 = args.army1 ? args.army1 : 100; // getNumberInRange(50, 100);
+let armySize2 = args.army2 ? args.army2 : 100; // getNumberInRange(50, 100);
 const holdArmy1Size = armySize1;
 const holdArmy2Size = armySize2;
 
@@ -40,6 +40,9 @@ while (armySize2 > 0) {
 // Start the battle, 10 rounds
 console.log('\n* * * * * * * * * * * * * * * * * * * *\n');
 console.log(`STARTING THE BATTLE...`);
+console.log('ARMY 1 BUILDOUT:', JSON.stringify(army1));
+console.log('ARMY 2 BUILDOUT:', JSON.stringify(army2));
+console.log('\n* * * * * * * * * * * * * * * * * * * *\n');
 
 const battle = new Battle(totalRounds, army1, army2);
 
