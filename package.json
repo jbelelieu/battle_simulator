@@ -32,6 +32,7 @@
 		"test": "jest --coverage",
 		"test:watch": "jest --watch",
 		"postinstall": "npm run build",
+		"prepare" : "npm run build",
 		"start": "node -r dotenv/config build/src/index.js"
 	},
 	"author": "Jon Belelieu <jonnyobell@gmail.com>",
